@@ -50,7 +50,7 @@ public class CallDetails {
 		return this.Call;
 	}
 	
-	public String getcallFrom() {
+	public String getCallFrom() {
 		return this.CallFrom;
 	}
 	

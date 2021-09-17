@@ -11,30 +11,33 @@ rule "R1: in general allow calls"
 
 rule "R2: when at_family_outing and business call"
 	when
-		callObject: CallDetails(Location=="at_family_outing", Call=="business")
+		callObject: CallDetails(location=="at_family_outing", call=="business", callFrom != "boss" )
+    then
+        callObject.setAllowDeny("deny");
+        System.out.println("Rule R2: when at_family_outing && business call then Deny");
+    end
+
+rule "R2: when at_family_outing and business call from boss"
+	when
+		callObject: CallDetails(location=="at_family_outing", call=="business", callFrom == "boss" )
+    then
+        callObject.setAllowDeny("allow");
+        System.out.println("Rule R2: when at_family_outing && business call from boss then Allow");
+    end
+
+rule "R3: when at_work and family call from son"
+	when
+		callObject: CallDetails(location=="at_work", call=="family", callFrom == "son")
 	then
-		if (callObject.getcallFrom()=="boss") { 
-			callObject.setAllowDeny("allow");
-			System.out.println("Rule R2: when at_family_outing && business call from boss then Allow");
-			}
-		else {
-			callObject.setAllowDeny("deny");
-			System.out.println("Rule R2: when at_family_outing && business call then Deny");
-		}
-		
-	end
+            callObject.setAllowDeny("allow");
+            System.out.println("Rule R3: when at_work && family call && from son, then Allow");
+    end
 
 rule "R3: when at_work and family call"
 	when
-		callObject: CallDetails(Location=="at_work", Call=="family")
-	then
-		if (callObject.getcallFrom()=="son") { 
-			callObject.setAllowDeny("allow");
-			System.out.println("Rule R3: when at_work && family call && from son, then Allow");
-			}
-		else {
-			callObject.setAllowDeny("deny");
-			System.out.println("Rule R3: when at_work && family call then Deny");
-		}
-	end
+		callObject: CallDetails(location=="at_work", call=="family", callFrom != "son")
+    then
+        callObject.setAllowDeny("deny");
+        System.out.println("Rule R3: when at_work && family call then Deny");
+    end
 

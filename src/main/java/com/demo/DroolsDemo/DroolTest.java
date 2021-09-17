@@ -1,8 +1,5 @@
 package com.demo.DroolsDemo;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 
 import org.drools.compiler.compiler.DroolsParserException;
 import org.kie.api.KieServices;
@@ -39,7 +36,7 @@ public class DroolTest {
         callDetails.incomingCall("family", "son");
         kSession.insert(callDetails);
         kSession.fireAllRules();
-        System.out.println("The decision to allow or deny a " + callDetails.getCall() + " call from " + callDetails.getcallFrom() + ", while at " +
+        System.out.println("The decision to allow or deny a " + callDetails.getCall() + " call from " + callDetails.getCallFrom() + ", while at " +
                 "Location=" + callDetails.getLocation() + " and Activity=" + callDetails.getActivity() + ", is:" + callDetails.getAllowDeny() + ".");
         
     }
