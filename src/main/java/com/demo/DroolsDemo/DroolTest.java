@@ -7,7 +7,7 @@ import java.io.Reader;
 import org.drools.compiler.compiler.DroolsParserException;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.*;
-
+import org.kie.api.runtime.rule.*;
 
 public class DroolTest {
     public static void main(String[] args) throws DroolsParserException, IOException {
@@ -23,24 +23,38 @@ public class DroolTest {
 
         KieSession kSession = kContainer.newKieSession();
         
-        /* card details & offers.drl test */
+        /* call details & callDetails.drl */
         /*
-        CardDetails cardDetails = new CardDetails();
-        cardDetails.setCard("ABC Bank");
-        kSession.insert(cardDetails);
-        kSession.fireAllRules();
-        System.out.println("The discount for the card of " + cardDetails.getCard() + " is "
-                + cardDetails.getDiscount() + "%");
-        */
-        
-        /* call details & callAssistant.drl */
         CallDetails callDetails = new CallDetails();
         callDetails.setLocation("at_work");
         callDetails.incomingCall("family", "son");
         kSession.insert(callDetails);
         kSession.fireAllRules();
-        System.out.println("The decision to allow or deny a " + callDetails.getCall() + " call from " + callDetails.getcallFrom() + ", while at " +
-                "Location=" + callDetails.getLocation() + " and Activity=" + callDetails.getActivity() + ", is:" + callDetails.getAllowDeny() + ".");
+        System.out.println("The decision to allow or deny a " + callDetails.getCall() + " call from " + callDetails.getCallFrom() + ", while at " +
+                "Location=" + callDetails.getLocation() + " and Activity=" + callDetails.getActivity() + ", is:" + callDetails.getAllowDenyCall() + ".");
+		*/
+        
+        /*	call assistant */
+        CallAssistant assistant = new CallAssistant();
+        /*	Scenarion#1: at_family_outing && call from work	*/
+        System.out.println("Scenario 1: at_family_outing, call from_work");
+        assistant.setLocation("at_family_outing");
+        assistant.newCall_fromWork("");
+        FactHandle fh = kSession.insert(assistant);
+        kSession.fireAllRules();
+        System.out.println("DECISION: " + assistant.getAllowDenyCall() + " call= " + assistant.getCall() + ", from=" + assistant.getCallFrom() + ", while at " +
+                "Location=" + assistant.getLocation() + " and Activity=" + assistant.getActivity() + ", is:" + assistant.getAllowDenyCall() + ".");
+
+        /*	Scenarion#2: at_family_outing && call from boss	*/
+        System.out.println("Scenario 2: at_family_outing, call from_boss");
+        assistant.newCall_fromWork("boss");
+        kSession.update(fh, assistant);
+        kSession.fireAllRules();
+        System.out.println("DECISION: " + assistant.getAllowDenyCall() + " call= " + assistant.getCall() + ", from=" + assistant.getCallFrom() + ", while at " +
+                "Location=" + assistant.getLocation() + " and Activity=" + assistant.getActivity() + ", is:" + assistant.getAllowDenyCall() + ".");
+
+
+        System.out.println("Done");
         
     }
 

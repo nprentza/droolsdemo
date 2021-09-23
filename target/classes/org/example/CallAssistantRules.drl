@@ -1,0 +1,64 @@
+import com.demo.DroolsDemo.CallAssistant
+
+rule "Rule1: when (at_family_outing && from_boss) then ALLOW"
+	activation-group "rules"
+	when
+		callAssistant: CallAssistant(Location=="at_family_outing", Call=="from_work", CallFrom=="boss")
+	then
+		callAssistant.setAllowDenyCall("allow");
+		System.out.println("Rule1: when (at_family_outing && from_boss) then ALLOW");
+	end
+
+rule "Rule2: when (at_family_outing && from_work) then DENY"
+	activation-group "rules"
+	when
+		callAssistant: CallAssistant(Location=="at_family_outing", Call=="from_work")
+	then
+		callAssistant.setAllowDenyCall("deny");
+		System.out.println("Rule2: when (at_family_outing && from_work) then DENY");
+	end
+
+rule "Rule3: when (at_work && call_from_son && in_meeting && son_at_school) then ALLOW"
+	activation-group "rules"
+	when
+		callAssistant: CallAssistant(Location=="at_work", CallFrom=="son", Activity=="in_meeting", SonLocation=="at_school")
+	then
+		callAssistant.setAllowDenyCall("allow");
+		System.out.println("Rule3: when (at_work && call_from_son && in_meeting && son_at_school) then ALLOW");
+	end
+
+rule "Rule4: when (at_work && call_from_son && in_meeting) then DENY"
+	activation-group "rules"
+	when
+		callAssistant: CallAssistant(Location=="at_work", CallFrom=="son", Activity=="in_meeting")
+	then
+		callAssistant.setAllowDenyCall("deny");
+		System.out.println("Rule4: when (at_work && call_from_son && in_meeting) then DENY");
+	end
+
+rule "Rule5: when (at_work && family_call && call_from_son) then ALLOW"
+	activation-group "rules"
+	when
+		callAssistant: CallAssistant(Location=="at_work", CallFrom=="son")
+	then
+		callAssistant.setAllowDenyCall("allow");
+		System.out.println("Rule5: when (at_work && family_call && call_from_son) then DENY");
+	end
+
+rule "Rule6: when (at_work && family_call) then DENY"
+	activation-group "rules"
+	when
+		callAssistant: CallAssistant(Location=="at_work", call=="from_family")
+	then
+		callAssistant.setAllowDenyCall("deny");
+		System.out.println("Rule6: when (at_work && family_call) then DENY");
+	end
+
+rule "Default rule: when no condition is met then allow call"
+	activation-group "rules"
+	when
+		callAssistant: CallAssistant()
+	then
+		callAssistant.setAllowDenyCall("allow");
+		System.out.println("Default rule: in general allow calls");
+	end

@@ -2,11 +2,11 @@ package com.demo.DroolsDemo;
 
 public class CallDetails {
 	
-	private String Location;
-	private String Activity;
-	private String Call;
-	private String CallFrom;
-	private String AllowDenyCall;
+	private String location;
+	private String activity;
+	private String call;
+	private String callFrom;
+	private String allowDenyCall;
 	
 	/* set */
 	
@@ -15,47 +15,47 @@ public class CallDetails {
 	}
 	
 	public CallDetails(String loc, String act) {
-		this.Location = loc;
-		this.Activity = act;
+		this.location = loc;
+		this.activity = act;
 	}
 	
 	public void setLocation(String loc) {
-		this.Location = loc;
+		this.location = loc;
 	}
 	
 	public void setActivity(String act) {
-		this.Activity = act;
+		this.activity = act;
 	}
 	
 	public void incomingCall(String call, String from) {
-		this.Call = call;
-		this.CallFrom = from;
+		this.call = call;
+		this.callFrom = from;
 	}
 	
-	public void setAllowDeny(String allowDeny) {
-		this.AllowDenyCall = allowDeny;
+	public void setAllowDenyCall(String allowDeny) {
+		this.allowDenyCall = allowDeny;
 	}
 	
 	/* get */
 	
 	public String getLocation() {
-		return this.Location;
+		return this.location;
 	}
 
 	public String getActivity() {
-		return this.Activity;
+		return this.activity;
 	}
 		
 	public String getCall() {
-		return this.Call;
+		return this.call;
 	}
 	
-	public String getcallFrom() {
-		return this.CallFrom;
+	public String getCallFrom() {
+		return this.callFrom;
 	}
 	
-	public String getAllowDeny() {
-		return this.AllowDenyCall;
+	public String getAllowDenyCall() {
+		return this.allowDenyCall;
 	}
 	
 	
