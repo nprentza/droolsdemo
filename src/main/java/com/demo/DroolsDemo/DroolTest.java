@@ -20,20 +20,8 @@ public class DroolTest {
 
         KieServices ks = KieServices.Factory.get();
         KieContainer kContainer = ks.getKieClasspathContainer();
-
         KieSession kSession = kContainer.newKieSession();
-        
-        /* call details & callDetails.drl */
-        /*
-        CallDetails callDetails = new CallDetails();
-        callDetails.setLocation("at_work");
-        callDetails.incomingCall("family", "son");
-        kSession.insert(callDetails);
-        kSession.fireAllRules();
-        System.out.println("The decision to allow or deny a " + callDetails.getCall() + " call from " + callDetails.getCallFrom() + ", while at " +
-                "Location=" + callDetails.getLocation() + " and Activity=" + callDetails.getActivity() + ", is:" + callDetails.getAllowDenyCall() + ".");
-		*/
-        
+                
         /*	call assistant */
         CallAssistant assistant = new CallAssistant();
         /*	Scenarion#1: at_family_outing && call from work	*/
